@@ -13,6 +13,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ControolHome controolHome = Get.find();
+
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: CustomScrollView(slivers: [
@@ -20,43 +22,43 @@ class HomeView extends StatelessWidget {
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           sliver: SliverToBoxAdapter(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TitleHome(),
-                // kkkk
-                Mathed.heightSmal(),
-                const SearchAndActeGory(),
-                Mathed.heightSmal(),
-                const Categeay(),
-                // Mathed.heightSmal(),
-              ],
+            child: AnimatedBuilder(
+              animation: controolHome.animationController,
+              builder: (context, child) => Opacity(
+                opacity: controolHome.fadeAnimation.value,
+                child: SlideTransition(
+                  position: controolHome.positionAnimation,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TitleHome(),
+                      // kkkk
+                      Mathed.heightSmal(),
+                      const SearchAndActeGory(),
+                      Mathed.heightSmal(),
+                      const Categeay(),
+                      // Mathed.heightSmal(),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ),
-        GetBuilder<controolHome>(builder: (controller) {
+        GetBuilder<ControolHome>(builder: (controller) {
           print("11");
-          return SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: AnimatedBuilder(
-                animation: controller.animationController,
-                builder: (context, child) => GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 20,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
-                  itemBuilder: (context, index) {
-                    return Test(
-                      index: index,
-                    );
-                  },
-                ),
-              ),
+          return SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            sliver: SliverGrid.builder(
+              itemCount: 20,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
+              itemBuilder: (context, index) {
+                return Test(
+                  index: index,
+                );
+              },
             ),
           );
         })

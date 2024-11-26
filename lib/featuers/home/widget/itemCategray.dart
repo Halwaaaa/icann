@@ -8,7 +8,7 @@ import 'package:ican/featuers/home/controol/controolHome.dart';
 class itemCatery extends StatelessWidget {
   const itemCatery({super.key, required this.index, required this.controll});
   final int index;
-  final controolHome controll;
+  final ControolHome controll;
 
   @override
   Widget build(BuildContext context) {

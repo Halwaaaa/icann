@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:ican/core/compnated/Doctrion.dart';
 
 class Test extends StatefulWidget {
-  const Test({super.key, required this.index});
+  const Test({
+    super.key,
+    required this.index,
+  });
   final int index;
 
   @override
@@ -29,6 +32,8 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    _controller.reset();
+    _controller.forward();
     return AnimatedBuilder(
       animation: _controller,
       child: Container(
@@ -42,11 +47,11 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
   void initAnimated() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 600),
     );
     _offsetAnimation = Tween<Offset>(
-      begin: const Offset(0, 4), // Start from below
-      end: Offset.zero, // End at original position
+      begin: const Offset(0.0, 1.0),
+      end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.easeOut,

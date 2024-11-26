@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ican/core/utlies/Modules.dart';
@@ -11,7 +13,8 @@ class Categeay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<controolHome>(builder: (controll) {
+    return GetBuilder<ControolHome>(builder: (controll) {
+      log("cacta");
       return SizedBox(
         height: 60,
         width: double.infinity,

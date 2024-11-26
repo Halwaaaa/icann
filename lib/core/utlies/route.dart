@@ -11,7 +11,7 @@ class Routers {
   static List<GetPage<dynamic>> router = [
     GetPage(
       page: () => const HomeView(),
-      bindings: [BindingsBuilder.put(() => controolHome())],
+      bindings: [BindingsBuilder.put(() => ControolHome())],
       name: Rhome,
     ),
     // GetPage(

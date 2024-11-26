@@ -12,7 +12,7 @@ Map<String, String> TranslationsEn = {
 
   AppText.homeTitle: "Find the best",
   AppText.homeSubTitle: "Coffee to your taste",
-  AppText.Find: "Find your coffee...",
+  AppText.Find: "Find ...",
   AppText.Espresso: "Espresso",
   AppText.EspressTitle1: "with Oa t Milk",
 };

@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // ignore: deprecated_member_use
-class controolHome extends GetxController with SingleGetTickerProviderMixin {
+class ControolHome extends GetxController with SingleGetTickerProviderMixin {
   late final AnimationController animationController;
-  late final Animation<double> gridAnimation;
+  late final Animation<Offset> positionAnimation;
+  late final Animation<double> fadeAnimation;
 
   @override
   void onInit() {
@@ -20,27 +21,27 @@ class controolHome extends GetxController with SingleGetTickerProviderMixin {
   void ChangedSelctedCategay(int index) {
     isSelctedCategay = List.filled(4, false);
     isSelctedCategay[index] = true;
-    startAnimation();
 
     update();
   }
 
   void startAnimation() {
     animationController.forward();
-    update();
   }
 
   void initAnimtedGrid() {
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 400),
     );
 
-    gridAnimation = Tween<double>(
-            begin: 0.1, // تبدأ الحركة من الأسفل
-            end: 1.0 // تنتهي في موقعها الطبيعي
-            )
-        .animate(CurvedAnimation(
+    fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: animationController, curve: Curves.easeIn),
+    );
+    positionAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 5), // يبدأ من الأسفل
+      end: Offset.zero, // تبدأ الحركة من الأسفل
+    ).animate(CurvedAnimation(
       parent: animationController,
       curve: Curves.easeOut,
     ));
