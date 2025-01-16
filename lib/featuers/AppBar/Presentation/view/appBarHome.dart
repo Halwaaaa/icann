@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:ican/core/Loction/textApp.dart';
 import 'package:ican/core/compnated/Doctrion.dart';
 import 'package:ican/core/utlies/color.dart';
