@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:ican/core/utlies/mathed.dart';
 import 'package:ican/core/Loction/textApp.dart';
 import 'package:ican/core/utlies/textStyle.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class TitleHome extends StatelessWidget {
   const TitleHome({
