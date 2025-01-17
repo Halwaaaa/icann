@@ -1,9 +1,7 @@
-// ignore_for_file: avoid_renaming_method_parameters
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_navigation/src/routes/custom_transition.dart';
 
-class CustomPageTransition extends CustomTransition {
+class MyCustomTransition extends CustomTransition {
   @override
   Widget buildTransition(
       BuildContext context,
@@ -12,28 +10,25 @@ class CustomPageTransition extends CustomTransition {
       Animation<double> animation,
       Animation<double> secondaryAnimation,
       Widget child) {
-    return ScaleTransition(
-      scale: CurvedAnimation(
-        parent: animation,
-        curve: Curves.elasticOut, // تأثير يشبه Spring
-      ),
-      child: FadeTransition(
-        opacity: animation,
-        child: child,
-      ),
+    var slideAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: animation,
+      curve: curve ?? Curves.easeInOut,
+    ));
+
+    var fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: animation,
+      curve: curve ?? Curves.easeInOut,
+    ));
+
+    return SlideTransition(
+      position: slideAnimation,
+      child: child,
     );
   }
-  // @override
-  // Widget buildTransi(BuildContext context, CurvedAnimation animation, CurvedAnimation alignment, Widget child) {
-  //   return ScaleTransition(
-  //     scale: CurvedAnimation(
-  //       parent: animation,
-  //       curve: Curves.elasticOut, // تأثير يشبه Spring
-  //     ),
-  //     child: FadeTransition(
-  //       opacity: animation,
-  //       child: child,
-  //     ),
-  //   );
-  // }
 }

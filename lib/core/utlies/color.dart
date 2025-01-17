@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 abstract class AppColor {
-  static const Color colorSplachTitle = Color.fromRGBO(56, 34, 15, 1);
-  static const Color dafultColor = Color.fromRGBO(150, 114, 89, 1);
-  static const Color dafultColorofShap = Color.fromRGBO(0, 0, 0, 0.3);
-  static const Color colorStars = Color.fromRGBO(209, 120, 66, 1);
-  static const Color colorBlack = Color.fromRGBO(68, 68, 68, 1);
+  static const Color navyBlue = Color(0xFF000080);
+  static const Color primary = Color(0xFF01124c);
+  static const Color primaryAppbar = Color(0xFF2CA6DF);
+  static const Color Catrgray = Color.fromRGBO(41, 64, 144, 1);
+  static const Color gray = Color.fromRGBO(202, 196, 208, 1);
+  //static const Color gray = Color.fromRGBO(44, 166, 223, 1);
 }

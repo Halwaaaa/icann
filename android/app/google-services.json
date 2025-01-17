@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588989371774",
+    "project_id": "ican-91267",
+    "storage_bucket": "ican-91267.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588989371774:android:69317edbfc04850b804f2f",
+        "android_client_info": {
+          "package_name": "com.example.ican"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAia49XkynCUgZuQuSbS6Qf_w9QJsk5A0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,19 @@
+//  AnimatedContainer(
+//                     decoration: BoxDecoration(
+//                         color: Colors.grey.shade200,
+//                         borderRadius:
+//                             const BorderRadius.all(Radius.circular(20))),
+//                     duration: const Duration(milliseconds: 800),
+//                     width: _isSearchActive ? 200 : 0,
+//                     height: 40,
+//                     child: Center(
+//                       child: TextField(
+//                         controller: _searchController,
+//                         decoration: const InputDecoration(
+//                           hintText: 'ابحث هنا...',
+//                           border: InputBorder.none,
+//                           contentPadding:
+//                               EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+//                         ),
+//                       ),
+//                     )),
