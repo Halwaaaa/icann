@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:ican/core/Loction/textApp.dart';
 import 'package:ican/core/compnated/Dialog.dart';
 import 'package:ican/core/services/hivenServices.dart';
