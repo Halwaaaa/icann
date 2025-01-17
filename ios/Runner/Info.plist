@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -46,16 +45,14 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>نحتاج إلى الوصول إلى مكتبة الصور لاختيار الصور.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>نحتاج إلى الوصول إلى الملفات لحفظ البيانات.</string>
 </dict>
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
-</dict>
-<key>NSPhotoLibraryUsageDescription</key>
-<string>نحتاج إلى الوصول إلى مكتبة الصور لاختيار الصور.</string>
-<key>NSDocumentsFolderUsageDescription</key>
-<string>نحتاج إلى الوصول إلى الملفات لحفظ البيانات.</string>
-
-
 </plist>
