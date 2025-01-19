@@ -19,9 +19,6 @@ class CounterControll extends GetxController
   bool topCity = false;
   final GlobalKey dropdownKeyCity = GlobalKey();
 
-  bool isDropdownVisibleCity = false;
-  bool isDropdownVisibleSearch = false;
-
   OverlayEntry? overlayEntryCity;
 
   late String titelCity;
@@ -43,6 +40,7 @@ class CounterControll extends GetxController
   late int indexCountre;
   late bool showTitel;
   late String titelState;
+  late bool isDropdownVisibleCity;
   @override
   void onInit() {
     showTitel = true;
@@ -51,6 +49,8 @@ class CounterControll extends GetxController
 
     initValues(nameCitys.length);
     searchControll = Get.find();
+
+    isDropdownVisibleCity = true;
 
     super.onInit();
   }
@@ -168,7 +168,7 @@ class CounterControll extends GetxController
       ChangedfillcolorSelected(AppColor.primaryAppbar);
       ChangedcolorSelected(Colors.white);
     } else {
-            searchControll.setNewCounters(null);
+      searchControll.setNewCounters(null);
 
       showStautes = false;
       update([City]);
@@ -197,8 +197,8 @@ class CounterControll extends GetxController
     CloseDropOfCity();
   }
 
-  void toggleDropdown() {
-    isDropdownVisibleCity = !isDropdownVisibleCity;
+  void toggleDropdown(bool value) {
+    isDropdownVisibleCity = value;
     update([City]);
   }
 
@@ -214,7 +214,7 @@ class CounterControll extends GetxController
   void openCloseDropOfCity(
     BuildContext context,
   ) {
-    if (!isDropdownVisibleCity) {
+    if (isDropdownVisibleCity) {
       openDropOfCity(
         context,
       );
@@ -233,7 +233,7 @@ class CounterControll extends GetxController
         : ChangedcolorSelected(colorSelected);
     overlayEntryCity?.remove();
     overlayEntryCity = null;
-    toggleDropdown();
+    toggleDropdown(true);
   }
 
   void openDropOfCity(
@@ -248,7 +248,7 @@ class CounterControll extends GetxController
         : ChangedcolorSelected(colorSelected);
     Overlay.of(context).insert(overlayEntryCity!);
     startAnimation();
-    toggleDropdown();
+    toggleDropdown(false);
   }
 
   void ChangedTapCity() {

@@ -86,6 +86,7 @@ class MainlayoutView extends StatelessWidget {
           );
 
           return Scaffold(
+            resizeToAvoidBottomInset: true,
             key: drawerController.scaffoldKey,
             drawer: const DrawerView(),
             bottomNavigationBar: Directionality(

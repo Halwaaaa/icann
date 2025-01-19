@@ -62,7 +62,7 @@ class HivenServices extends GetxService {
     //Hive.deleteBoxFromDisk(user);
     userbox = await Hive.openBox(user);
 
-    // userbox.delete(user);
+    //userbox.delete(user);
 
     return this;
   }

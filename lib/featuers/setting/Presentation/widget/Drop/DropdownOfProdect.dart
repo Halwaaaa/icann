@@ -13,9 +13,11 @@ import 'package:skeletonizer/skeletonizer.dart';
 OverlayEntry showDropdownOfProdect(BuildContext context1) {
   OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
     final AddOrderControll addOrderControll = Get.find();
+    final bottomInsets = MediaQuery.of(context).viewInsets.bottom;
+
     return Positioned(
         top: 150,
-        bottom: 50,
+        bottom: 20 + bottomInsets,
         right: MediaQuery.sizeOf(context).width * 0.1,
         left: MediaQuery.sizeOf(context).width * 0.1,
         child: AnimatedBuilder(
@@ -66,38 +68,47 @@ class bobyOfProdrct extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: Column(
           children: [
-            Row(
-              children: [
-                SizedBox(
-                  height: 50,
-                  width: MediaQuery.sizeOf(context).width * 0.75,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        suffixIcon: SizedBox(
-                          width: 35,
-                          height: 30,
-                          child: IconButton(
-                            icon: Icon(Icons.close),
+            GetBuilder<AddOrderControll>(
+              id: AddOrderControll.prodect,
+              builder: (addOrderControll) => Row(
+                children: [
+                  SizedBox(
+                    height: 50,
+                    width: MediaQuery.sizeOf(context).width * 0.75,
+                    child: TextFormField(
+                      controller: addOrderControll.searchController,
+                      onChanged: (value) =>
+                          addOrderControll.searchProdect(value),
+                      decoration: InputDecoration(
+                          suffixIcon: SizedBox(
+                            width: 35,
+                            height: 30,
+                            child: IconButton(
+                              icon: Icon(
+                                  addOrderControll.prodectcountSelected.isEmpty
+                                      ? Icons.close
+                                      : Icons.add),
+                              onPressed: () {
+                                addOrderControll.CloseDropOfProdect();
+                              },
+                            ),
+                          ),
+                          prefixIcon: IconButton(
+                            iconSize: 30,
+                            icon: Icon(Icons.search),
                             onPressed: () {
-                              addOrderControll.CloseDropOfProdect();
+                              // addOrderControll.CloseDropOfProdect();
                             },
                           ),
-                        ),
-                        prefixIcon: IconButton(
-                          iconSize: 30,
-                          icon: Icon(Icons.search),
-                          onPressed: () {
-                            // addOrderControll.CloseDropOfProdect();
-                          },
-                        ),
-                        hintText: "بحث عن مواد",
-                        hintStyle: TextStyle(
-                          color: AppColor.primaryAppbar,
-                          fontSize: 15,
-                        )),
+                          hintText: "بحث عن مواد",
+                          hintStyle: TextStyle(
+                            color: AppColor.primaryAppbar,
+                            fontSize: 15,
+                          )),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(
               height: 20,
@@ -107,14 +118,36 @@ class bobyOfProdrct extends StatelessWidget {
               builder: (addOrderControll) => Expanded(
                   child: Skeletonizer(
                 enabled: addOrderControll.lodingProdect,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 30,
-                  ),
-                  itemCount: addOrderControll.prodectData.length,
-                  itemBuilder: (context, index) => itemProdect(
-                    prodectModels: addOrderControll.prodectData[index],
-                  ),
+                child: Column(
+                  children: [
+                    GetBuilder<AddOrderControll>(
+                      id: AddOrderControll.prodect,
+                      builder: (controller) => Text(
+                          " سعر المنتجات الكلي  : " +
+                              controller.totalPricrOrder.toString(),
+                          style: TextStyle(
+                            color: AppColor.primaryAppbar,
+                            fontSize: 15,
+                          )),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: addOrderControll.prodectData.length,
+                        itemBuilder: (context, index) =>
+                            GetBuilder<AddOrderControll>(
+                          id: AddOrderControll.prodect,
+                          builder: (controller) {
+                            return itemProdect(
+                              index: index,
+                              prodectModels:
+                                  addOrderControll.prodectData[index],
+                              count: addOrderControll.prodectcount[index].qty,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               )),
             )
@@ -129,74 +162,99 @@ class itemProdect extends StatelessWidget {
   const itemProdect({
     super.key,
     required this.prodectModels,
+    required this.count,
+    required this.index,
   });
   final ProdectModels prodectModels;
+  final int count;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-          color: AppColor.primaryAppbar,
-          borderRadius: BorderRadius.all(Radius.circular(12))),
-      child: SizedBox.expand(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                fit: FlexFit.tight,
-                child: Text(
-                  prodectModels.name,
-                  style: ApptextStyle.textStyleApp20
-                      .copyWith(color: Colors.white, fontSize: 15),
+    final AddOrderControll addOrderControll = Get.find();
+    final bool show = addOrderControll.prodectSerchId.isEmpty ||
+        addOrderControll.prodectSerchId.contains(prodectModels.id);
+    return show
+        ? Container(
+            height: 150,
+            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            decoration: BoxDecoration(
+                color: AppColor.primaryAppbar,
+                borderRadius: BorderRadius.all(Radius.circular(12))),
+            child: SizedBox.expand(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  textDirection: TextDirection.ltr,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: Text(
+                        prodectModels.name,
+                        style: ApptextStyle.textStyleApp20
+                            .copyWith(color: Colors.white, fontSize: 15),
+                      ),
+                    ),
+                    Text(
+                      'السعر: ${prodectModels.price}',
+                      style: ApptextStyle.textStyleApp20
+                          .copyWith(color: Colors.white, fontSize: 15),
+                    ),
+                    Text(
+                      'السعر الكلي : ${prodectModels.price * count}',
+                      style: ApptextStyle.textStyleApp20
+                          .copyWith(color: Colors.white, fontSize: 15),
+                    ),
+                    Text(
+                      'الكمية المتوفرة : ${prodectModels.count}',
+                      style: ApptextStyle.textStyleApp20
+                          .copyWith(color: Colors.white, fontSize: 15),
+                    ),
+                    Flexible(
+                        flex: 2,
+                        child: Row(
+                          spacing: 25,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                addOrderControll.addProdect(index);
+                              },
+                              child: CircleAvatar(
+                                radius: 15,
+                                backgroundColor: Colors.white,
+                                child: Center(
+                                  child: FittedBox(child: Icon(Icons.add)),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              count.toString(),
+                              style: ApptextStyle.textStyleApp20
+                                  .copyWith(color: Colors.white),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                addOrderControll.removeProdect(index);
+                              },
+                              child: CircleAvatar(
+                                radius: 15,
+                                backgroundColor: Colors.white,
+                                child: FittedBox(
+                                  child: Center(
+                                    child: Icon(Icons.remove),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ))
+                  ],
                 ),
               ),
-              Text(
-                '${prodectModels.price}:السعر',
-                style: ApptextStyle.textStyleApp20
-                    .copyWith(color: Colors.white, fontSize: 15),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                '${prodectModels.price}: السعر الكلي',
-                style: ApptextStyle.textStyleApp20
-                    .copyWith(color: Colors.white, fontSize: 15),
-              ),
-              Flexible(
-                  child: Row(
-                spacing: 20,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.white,
-                    child: Center(
-                      child: Icon(Icons.add),
-                    ),
-                  ),
-                  Text(
-                    "1",
-                    style: ApptextStyle.textStyleApp20
-                        .copyWith(color: Colors.white),
-                  ),
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.white,
-                    child: Center(
-                      child: Icon(Icons.remove),
-                    ),
-                  ),
-                ],
-              ))
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          )
+        : SizedBox.shrink();
   }
 }

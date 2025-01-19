@@ -74,6 +74,7 @@ class ListInformationGroup extends StatelessWidget {
                     groupControll, searchControll, groupNew, groupUser);
 
                 return DafultListInformationWithText(
+                  emptyMassges: "لاتوجد مجموعات بعد",
                   count: groupUser.length,
                   height: 350,
                   titels: (int index) {

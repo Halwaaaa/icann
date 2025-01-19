@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:hive/hive.dart';
 import 'package:ican/core/compnated/Doctrion.dart';
 import 'package:ican/core/utlies/Modules/ModulesHome.dart';
 import 'package:ican/core/utlies/textStyle.dart';
@@ -51,13 +52,19 @@ class ItemCategories extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: ApptextStyle.textStyleApp16,
                           ),
-                    Flexible(
-                      child: Text(
-                        titel[index],
-                        // maxLines: 1,
-                        textAlign: TextAlign.center,
-                        style:
-                            ApptextStyle.textStyleApp16.copyWith(fontSize: 14),
+                    Expanded(
+                      flex: 2,
+                      child: Wrap(
+                        alignment:
+                            WrapAlignment.center, // محاذاة النص في المنتصف
+                        children: [
+                          Text(
+                            titel[index],
+                            textAlign: TextAlign.center,
+                            style: ApptextStyle.textStyleApp16
+                                .copyWith(fontSize: 14),
+                          ),
+                        ],
                       ),
                     ),
                   ],

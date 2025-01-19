@@ -9,21 +9,34 @@ class Empty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverFillRemaining(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Flexible(
-            child: FittedBox(
-              child: Text(
-                titel,
-                style: ApptextStyle.textStyleApp24Selcted.copyWith(
-                    color: AppColor.navyBlue,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600),
+      child: TweenAnimationBuilder(
+        duration: Duration(seconds: 2),
+        tween: Tween<Offset>(
+          begin: Offset(0, 1),
+          end: Offset(0, 0),
+        ),
+        builder: (context, value, child) {
+          return Transform.translate(
+            offset: value, // تحريك العنصر
+            child: child,
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flexible(
+              child: FittedBox(
+                child: Text(
+                  titel,
+                  style: ApptextStyle.textStyleApp24Selcted.copyWith(
+                      color: AppColor.navyBlue,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

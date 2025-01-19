@@ -90,6 +90,8 @@ class SettingControll extends GetxController {
   }
 
   void changedIndex(int index) {
+    countersLaederControll.init();
+    stateLaederControll.init();
     if (modulesSetting()[index] == AppText.groupLeader.tr) isStiff = false;
     if (modulesSetting()[index] == 'الموظفين') isStiff = true;
     appBarControll.changedTitelAppBar(modulesSetting()[index]);

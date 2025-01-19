@@ -3,11 +3,14 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ican/core/Loction/textApp.dart';
+import 'package:ican/core/Models/UserModels.dart';
 import 'package:ican/core/compnated/DafultListwithtext.dart';
 import 'package:ican/core/compnated/item.dart';
+import 'package:ican/core/services/hivenServices.dart';
 import 'package:ican/core/utlies/Modules/ModulesHome.dart';
 import 'package:ican/core/utlies/Modules/MoudulesOrder.dart';
 import 'package:ican/core/utlies/color.dart';
+import 'package:ican/core/utlies/enum/enumPermation.dart';
 import 'package:ican/core/utlies/mathed.dart';
 import 'package:ican/core/utlies/textStyle.dart';
 import 'package:ican/featuers/AppBar/Presentation/controll/AppbarControll.dart';
@@ -21,6 +24,9 @@ class ListOrderMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HivenServices hivenServices = Get.find();
+    User? user = hivenServices.userbox.get(HivenServices.user);
+
     return GetBuilder<SearchControll>(
       id: SearchControll.saerch,
       builder: (searchControll) => GetBuilder<Ordercontroll>(
@@ -46,37 +52,43 @@ class ListOrderMain extends StatelessWidget {
             }
           }
 
-          return SliverMainAxisGroup(slivers: [
-            Outcome(),
-            DafultListInformationWithText(
-              count: orderData.length,
-              looding: isSearchSelected
-                  ? ordercontroll.lodingOrder || searchControll.lodingOrderSarch
-                  : ordercontroll.lodingOrder,
-              titels: (int index) {
-                return orderListTitel(orderData[index]);
-              },
-              onTapSubTitle: (index) {
-                final ControolHome controolHome = Get.find();
-
-                if (controolHome.indexModulesMain == 3) {
-                  final AppBarControll appBarControll = Get.find();
-                  appBarControll.changedTitelAppBar("الردوود");
-                  ordercontroll.setIdOrder(orderData[index].id);
-                  ordercontroll.changedIndexOrder(2);
-                }
-              },
-              titelsIconName: orderListIconName,
-              titel: AppText.details.tr,
-              subtitel: AppText.responses.tr,
-              onTapTitle: (index) {
-                final AppBarControll appBarControll = Get.find();
-                appBarControll.changedTitelAppBar(AppText.receiptDetails.tr);
-                ordercontroll.getLocalOrderDatiles(orderData[index].id);
-                ordercontroll.changedIndexOrder(3);
-              },
-            ),
-          ]);
+          return SliverPadding(
+            padding: EdgeInsets.only(bottom: 30),
+            sliver: SliverMainAxisGroup(slivers: [
+              Outcome(),
+              DafultListInformationWithText(
+                  count: orderData.length,
+                  looding: isSearchSelected
+                      ? ordercontroll.lodingOrder ||
+                          searchControll.lodingOrderSarch
+                      : ordercontroll.lodingOrder,
+                  titels: (int index) {
+                    return orderListTitel(orderData[index]);
+                  },
+                  onTapSubTitle: (index) {
+                    final AppBarControll appBarControll = Get.find();
+                    appBarControll.changedTitelAppBar("الردوود");
+                    ordercontroll.setIdOrder(orderData[index].id);
+                    ordercontroll.changedIndexOrder(2);
+                  },
+                  titelsIconName: orderListIconName,
+                  titel:
+                      user!.permation.contains(enumPermation.orderDetails.label)
+                          ? AppText.details.tr
+                          : null,
+                  subtitel: AppText.responses.tr,
+                  onTapTitle: (index) {
+                    if (user.permation
+                        .contains(enumPermation.orderDetails.label)) {
+                      final AppBarControll appBarControll = Get.find();
+                      appBarControll
+                          .changedTitelAppBar(AppText.receiptDetails.tr);
+                      ordercontroll.getLocalOrderDatiles(orderData[index].id);
+                      ordercontroll.changedIndexOrder(3);
+                    }
+                  }),
+            ]),
+          );
         },
       ),
     );

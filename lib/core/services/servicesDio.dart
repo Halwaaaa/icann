@@ -119,6 +119,22 @@ class ServicesDio extends GetxService {
     }
   }
 
+  Future<dynamic>? postRequestWithFile(String endpoint,
+      {FormData? data}) async {
+    try {
+      final response = await _dioWithToken.post(
+        endpoint,
+        data: data,
+      );
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } catch (error) {
+      _handleError(error);
+      rethrow;
+    }
+  }
+
   Future<Map<String, dynamic>?>? postRequestLog(String endpoint,
       {Map<String, dynamic>? data}) async {
     try {
@@ -147,7 +163,6 @@ class ServicesDio extends GetxService {
 
   void _handleError(dynamic error) {
     if (error is DioException) {
-      print(error.toString());
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
           throw ('Connection timeout occurred.');

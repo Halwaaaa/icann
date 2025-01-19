@@ -9,6 +9,7 @@ import 'package:ican/featuers/mainLayout/Presentation/Controll/mainLayoutcontrol
 class Dafultdialog {
   AwesomeDialog dialogsucces(BuildContext context, String massages) {
     Mainlayoutcontroll mainlayoutcontroll = Get.find();
+    mainlayoutcontroll.changedLoding(false);
 
     mainlayoutcontroll.changedCanGoToPages(false);
     return AwesomeDialog(

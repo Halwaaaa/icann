@@ -2,10 +2,16 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:ican/core/services/permationFile.dart';
+import 'package:ican/featuers/setting/Data/Remote/RemoteAddOrder.dart';
+import 'package:ican/featuers/setting/Presentation/Models/countModels.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:ican/core/services/servicesDio.dart';
@@ -16,9 +22,14 @@ import 'package:ican/featuers/setting/Presentation/Controller/countersLaederAndS
 import 'package:ican/featuers/setting/Presentation/Models/prodect.dart';
 import 'package:ican/featuers/setting/Presentation/widget/Drop/DropdownOfProdect.dart';
 import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 
 class AddOrderControll extends GetxController with GetTickerProviderStateMixin {
+  static String prodect = 'prodect';
+
   late AnimationController animationController;
+  late TextEditingController searchController;
+
   late File? image;
   late bool haveImge;
   late bool haveFile;
@@ -37,6 +48,7 @@ class AddOrderControll extends GetxController with GetTickerProviderStateMixin {
   late StateLaederControll stateLaederControll;
   OverlayEntry? overlayEntryProdect;
   late bool isDropdownVisibleProdect;
+  late num totalPricrOrder;
 
   late Animation<double> animation;
   late Animation<double> animationProdect;
@@ -46,17 +58,30 @@ class AddOrderControll extends GetxController with GetTickerProviderStateMixin {
   late Animation<Offset> positionProdect;
   late Mainlayoutcontroll mainlayoutcontroll;
   late List<ProdectModels> prodectData;
+  late List<int> prodectSerchId;
+  late List<Countmodels> prodectcount;
+  late List<Countmodels> prodectcountSelected;
   late bool lodingProdect;
   Timer? t;
 
   @override
   void onInit() {
     initText();
+    FileStorge = null;
     t = null;
+    prodectcountSelected = [];
+    totalPricrOrder = 0;
+
     prodectData = [
-      ProdectModels(id: 1, name: "ffafeff", price: 12000),
-      ProdectModels(id: 1, name: "ffafeff", price: 12000),
-      ProdectModels(id: 1, name: "ffafeff", price: 12000),
+      ProdectModels(id: 1, name: "ffafeff", price: 12000, count: 0),
+      ProdectModels(id: 1, name: "ffafeff", price: 12000, count: 0),
+      ProdectModels(id: 1, name: "ffafeff", price: 12000, count: 0),
+    ];
+    prodectSerchId = [];
+    prodectcount = [
+      Countmodels(id: 0, qty: 0),
+      Countmodels(id: 0, qty: 0),
+      Countmodels(id: 0, qty: 0),
     ];
     getProdect();
     isDropdownVisibleProdect = false;
@@ -124,6 +149,7 @@ class AddOrderControll extends GetxController with GetTickerProviderStateMixin {
     textAddresClient.dispose();
     texttotalAmount.dispose();
     textNotes.dispose();
+    searchController.dispose();
   }
 
   void initText() {
@@ -135,6 +161,7 @@ class AddOrderControll extends GetxController with GetTickerProviderStateMixin {
     textAddresClient = TextEditingController();
     texttotalAmount = TextEditingController();
     textNotes = TextEditingController();
+    searchController = TextEditingController();
   }
 
   Future<void> CloseDropOfProdect() async {
@@ -145,6 +172,54 @@ class AddOrderControll extends GetxController with GetTickerProviderStateMixin {
 
     overlayEntryProdect?.remove();
     overlayEntryProdect = null;
+  }
+
+  void addProdect(int index) {
+    if (prodectcount[index].qty < prodectData[index].count &&
+        prodectData[index].count != 0) {
+      prodectcount[index].qty = prodectcount[index].qty + 1;
+
+      totalPricrOrder = totalPricrOrder + prodectData[index].price;
+      prodectcountSelected.add(Countmodels(
+          id: prodectcount[index].id, qty: prodectcount[index].qty));
+      update([prodect]);
+    }
+  }
+
+  void removeProdect(int index) {
+    if (prodectcount[index].qty != 0) {
+      prodectcount[index].qty = prodectcount[index].qty - 1;
+      removprodrct(index);
+      update([prodect]);
+    }
+  }
+
+  void removprodrct(int index) {
+    if (prodectcount[index].qty != 0) {
+      totalPricrOrder = totalPricrOrder - prodectData[index].price;
+
+      prodectcountSelected.add(Countmodels(
+          id: prodectcount[index].id, qty: prodectcount[index].qty));
+    } else {
+      totalPricrOrder = totalPricrOrder - prodectData[index].price;
+
+      prodectcountSelected
+          .removeWhere((element) => element.id == prodectcount[index].id);
+    }
+  }
+
+  void searchProdect(String search) {
+    print(search);
+    prodectSerchId = [];
+    prodectData.forEachIndexed(
+      (index, element) {
+        if (element.name.toLowerCase().contains(search.toLowerCase())) {
+          prodectSerchId.add(element.id);
+        }
+      },
+    );
+
+    update([prodect]);
   }
 
   void openDropOfProdrct(
@@ -170,6 +245,12 @@ class AddOrderControll extends GetxController with GetTickerProviderStateMixin {
     if (result != null) {
       lodingProdect = false;
       prodectData = result;
+      prodectcount = List.generate(
+        result.length,
+        (index) {
+          return Countmodels(id: result[index].id, qty: 0);
+        },
+      );
 
       update([ProdectGet]);
     } else {
@@ -250,5 +331,36 @@ class AddOrderControll extends GetxController with GetTickerProviderStateMixin {
       haveFile = true;
       update();
     }
+  }
+
+  Future<void> addOrder(BuildContext context) async {
+    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    Mainlayoutcontroll mainlayoutcontroll = Get.find();
+    mainlayoutcontroll.changedLoding(true);
+
+    ServicesDio servicesDio = Get.find();
+    RemoteAddOrder remoteAddOrder = RemoteAddOrder(servicesDio);
+
+    OrderAddModel orderAddModel = OrderAddModel(
+        payment_image: null,
+        clientName: textNamClient.text,
+        clientPhone: int.tryParse(textNaumberClient.text),
+        clientPhoneTwo: int.tryParse(textNaumber2Client.text),
+        clientWhatsapp: int.tryParse(textNaumberWhatAppClient.text),
+        countryId: countersLaederControll.indexCountre,
+        stateId: stateLaederControll.idStates,
+        address: textAddresClient.text,
+        totalAmount: double.tryParse(texttotalAmount.text),
+        paymentType: countersLaederControll.selectedStatues[0] == true
+            ? 'cc'
+            : countersLaederControll.selectedStatues[1] == true
+                ? 'cod'
+                : null,
+        note: '',
+        products: prodectcountSelected);
+    print(orderAddModel);
+    await remoteAddOrder.addOrder(orderAddModel, context).then((f) {
+      //  mainlayoutcontroll.changedLoding(false);
+    });
   }
 }

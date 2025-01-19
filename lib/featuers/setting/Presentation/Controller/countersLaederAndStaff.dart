@@ -45,8 +45,8 @@ class CountersLaederControll extends GetxController
   late List<bool> selectedCounters;
   late List<bool> selectedStatues = [];
   List<String> nameCounters = ["الرياض", "الدمام", "جدة"];
-  List<String> nameStatues = ["نشيط", "غير نشيط"];
-  List<String> nameStatuesAdd = ["paymante", "cod"];
+  List<String> nameStatues = ["نشط", "غير نشظ"];
+  List<String> nameStatuesAdd = ["cc", "cod"];
   late AnimationController animationController;
   late Animation<double> animation;
   late Animation<double> opacity;
@@ -69,14 +69,15 @@ class CountersLaederControll extends GetxController
     init();
     searchControll = Get.find();
     initAnimated();
-    initValues(nameCounters.length);
-    initValuesStautes(nameCounters.length);
-    isDropdownVisibleCounters = true;
-    isDropdownVisibleSatutes = true;
+
     super.onInit();
   }
 
   void init() {
+    initValues(nameCounters.length);
+    initValuesStautes(nameCounters.length);
+    isDropdownVisibleCounters = true;
+    isDropdownVisibleSatutes = true;
     settingControll = Get.find();
     titelState = "jjjj";
     showTitel = true;

@@ -9,7 +9,7 @@ class RemtoProdacte {
       Map<String, dynamic>? response =
           await servicesDio.getRequestWithToken('orders/data');
       List<dynamic>? responseData = response?['data'];
-      print(response);
+      // print(response);
       List<ProdectModels> prodect = [];
 
       if (responseData != null) {
@@ -17,7 +17,7 @@ class RemtoProdacte {
           prodect.add(ProdectModels.fromJson(element));
         }
       }
-      print(responseData);
+      // print(responseData);
       return prodect;
     } catch (erorr) {
       print("pr" + erorr.toString());

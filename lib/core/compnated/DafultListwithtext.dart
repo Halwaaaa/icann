@@ -23,6 +23,7 @@ class DafultListInformationWithText extends StatelessWidget {
       this.height,
       this.looding,
       required this.titelsIconName,
+      this.emptyMassges = 'لايوجد طلبات',
       this.count = 5});
   final String? titel;
   final List<String> Function(int index) titels;
@@ -35,12 +36,13 @@ class DafultListInformationWithText extends StatelessWidget {
   final double? height;
   final bool? looding;
   final int count;
+  final String emptyMassges;
 
   @override
   Widget build(BuildContext context) {
     return SliverMainAxisGroup(slivers: [
       count == 0
-          ? Empty(titel: 'لايوجد طلبات')
+          ? Empty(titel: emptyMassges)
           : SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               sliver: SliverList.separated(

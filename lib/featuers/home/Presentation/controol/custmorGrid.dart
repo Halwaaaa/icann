@@ -36,6 +36,7 @@ class CustmorAndStaffControll extends GetxController {
   late AppBarControll appBarControll;
   late List<CustmorAlluser> custmorList;
   late bool loding;
+
   late int? idGroupSelected;
 
   Timer? t;

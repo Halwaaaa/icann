@@ -15,6 +15,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   NotificationsHelper().initNotifications();
   NotificationsHelper().getAccessToken();
+  
   NotificationsHelper().sendNotifications(
       body: "lll",
       fcmToken:

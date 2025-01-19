@@ -6,8 +6,10 @@ import 'package:ican/core/Loction/textApp.dart';
 import 'package:ican/core/compnated/DadfultBoutton.dart';
 import 'package:ican/core/utlies/appimage.dart';
 import 'package:ican/core/utlies/color.dart';
+import 'package:ican/featuers/AppBar/Presentation/widget/countersAndState.dart';
 import 'package:ican/featuers/home/Presentation/controol/OrderControll.dart';
 import 'package:ican/featuers/setting/Presentation/Controller/AddorderControll.dart';
+import 'package:ican/featuers/setting/Presentation/Controller/countersLaederAndStaff.dart';
 import 'package:ican/featuers/setting/Presentation/widget/item/Stautes.dart';
 import 'package:ican/featuers/setting/Presentation/widget/item/countersAndStateLaeder.dart';
 
@@ -17,10 +19,12 @@ class ListAddOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AddOrderControll addOrderControll = Get.put(AddOrderControll());
+    addOrderControll.onInit();
+    final CountersLaederControll controll = Get.find();
+    controll.init();
 
     addOrderControll.animationController.reset();
     addOrderControll.animationController.forward();
-    addOrderControll.getProdect();
     return SliverSafeArea(
         sliver: SliverFillRemaining(
             hasScrollBody: false,
@@ -70,16 +74,19 @@ class BobyOfAddOrder extends StatelessWidget {
                                 titel: 'اسم الزبون',
                                 icon: Icon(Icons.person)),
                             TextAddOrder(
+                                keyboardType: TextInputType.phone,
                                 textEditingController:
                                     addOrderControll.textNaumberClient,
                                 titel: 'هاتف الزبون',
                                 icon: Icon(Icons.phone)),
                             TextAddOrder(
+                                keyboardType: TextInputType.phone,
                                 textEditingController:
                                     addOrderControll.textNaumber2Client,
                                 titel: '  هاتف الزبون الثاني',
                                 icon: Icon(Icons.phone)),
                             TextAddOrder(
+                                keyboardType: TextInputType.phone,
                                 textEditingController:
                                     addOrderControll.textNaumberWhatAppClient,
                                 titel: 'واتساب الزبون',
@@ -96,6 +103,7 @@ class BobyOfAddOrder extends StatelessWidget {
                                 icon: Image.asset(AppImageName.address)),
 
                             TextAddOrder(
+                                keyboardType: TextInputType.number,
                                 textEditingController:
                                     addOrderControll.texttotalAmount,
                                 titel: 'المبلغ الكلي',
@@ -106,6 +114,23 @@ class BobyOfAddOrder extends StatelessWidget {
                                     addOrderControll.textNotes,
                                 titel: 'الملاحظات',
                                 icon: Icon(Icons.phone)),
+                            GetBuilder<CountersLaederControll>(
+                              id: CountersLaederControll.statuesLaeder,
+                              builder: (controller) => controller
+                                          .selectedStatues[0] ==
+                                      true
+                                  ? DadfultBoutton(
+                                      onTap: () {
+                                        addOrderControll.GetFileStorge(context);
+                                        // leaderGroupControll.tapAddLaedr(context);
+                                      },
+                                      title: "اضافة صورة وصل ",
+                                      ColorSelected: Colors.white,
+                                      fillColor: AppColor.Catrgray,
+                                    )
+                                  : SizedBox.shrink(),
+                            ),
+
                             DadfultBoutton(
                               onTap: () {
                                 addOrderControll.openDropOfProdrct(context);
@@ -117,7 +142,8 @@ class BobyOfAddOrder extends StatelessWidget {
                             ),
                             DadfultBoutton(
                               onTap: () {
-                                addOrderControll.GetFileStorge(context);
+                                addOrderControll.addOrder(context);
+
                                 // leaderGroupControll.tapAddLaedr(context);
                               },
                               title: "اضافة الطلب ",
