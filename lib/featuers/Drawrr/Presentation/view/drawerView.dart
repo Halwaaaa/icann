@@ -128,15 +128,15 @@ class DrawerView extends StatelessWidget {
                 children: [
                   Flexible(
                       child: FittedBox(
-                          child: Text(
-                    AppText.allRightsReserved.tr,
-                    style: ApptextStyle.textStyleApp16,
+                          child: Text.rich(
+                    textDirection: TextDirection.ltr,
+                    TextSpan(
+                        text: "2025 ICAN ",
+                        style: ApptextStyle.textStyleApp16,
+                        children: [
+                          TextSpan(text: 'جميع الحقوق محفوظة لشركة ')
+                        ]),
                   ))),
-                  Text(
-                    "2025",
-                    style: ApptextStyle.textStyleApp16
-                        .copyWith(fontWeight: FontWeight.w600),
-                  ),
                   const SizedBox(
                     width: 5,
                   )

@@ -1,5 +1,6 @@
 import 'package:ican/core/Loction/textApp.dart';
 
+String year = '2025';
 Map<String, String> TranslationsAr = {
   AppText.homeTitle: "  مرحبا بك ..",
   AppText.homeSubTitle: "مدير الفريق",
@@ -110,7 +111,7 @@ Map<String, String> TranslationsAr = {
   AppText.confirmLogout: 'هل أنت متأكد أنك تريد تسجيل الخروج؟',
   AppText.yes: 'نعم',
   AppText.no: 'لا',
-  AppText.allRightsReserved: 'جميع الحقوق محفوظة لشركة iCAN',
+  AppText.allRightsReserved: 'جميع الحقوق محفوظة لشركة   ',
   AppText.receiptDetails: 'تفاصيل الوصل',
   AppText.products: 'المنتجات',
   AppText.productName: 'اسم المنتج',
