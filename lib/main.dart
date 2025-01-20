@@ -12,19 +12,19 @@ import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  NotificationsHelper().initNotifications();
-  NotificationsHelper().getAccessToken();
-  
-  NotificationsHelper().sendNotifications(
-      body: "lll",
-      fcmToken:
-          "eZpiji0ZQ_6UAMLfkX9GWv:APA91bHsbdv1VtqjsP5mI_x8NG89E8WUniLX6HL1pu3tCroeNb0sOaawiT3Vyj2LrZy2jZVvthdSVONQoOWFAKWuGltLpmjJwe9qskvmGLorwQn7ZVzW4ro",
-      title: "ff",
-      userId: "fff",
-      type: "s");
+  // await Firebase.initializeApp();
+  // NotificationsHelper().initNotifications();
+  // NotificationsHelper().getAccessToken();
 
-  NotificationsHelper().handleBackgroundNotifications();
+  // NotificationsHelper().sendNotifications(
+  //     body: "lll",
+  //     fcmToken:
+  //         "eZpiji0ZQ_6UAMLfkX9GWv:APA91bHsbdv1VtqjsP5mI_x8NG89E8WUniLX6HL1pu3tCroeNb0sOaawiT3Vyj2LrZy2jZVvthdSVONQoOWFAKWuGltLpmjJwe9qskvmGLorwQn7ZVzW4ro",
+  //     title: "ff",
+  //     userId: "fff",
+  //     type: "s");
+
+  // NotificationsHelper().handleBackgroundNotifications();
 
   await Get.putAsync<HivenServices>(() async {
     return HivenServices().init();

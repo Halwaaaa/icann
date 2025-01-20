@@ -34,14 +34,14 @@ class GridCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       sliver: SliverGrid.builder(
         itemCount: titel.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: itemWidth / itemHeight,
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 20,
-            mainAxisSpacing: 30),
+            mainAxisSpacing: 10),
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {

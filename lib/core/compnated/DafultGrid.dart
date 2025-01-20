@@ -24,8 +24,9 @@ class DafultGrid extends StatelessWidget {
     bool isTablet = screenWidth >= 600;
 
     int crossAxisCount = isTablet ? 3 : 2;
-    double itemHeight = isTablet ? 200 : 170;
-    double itemWidth = screenWidth / crossAxisCount - 35;
+    double itemHeight = isTablet ? 220 : 180;
+    double itemWidth =
+        (screenWidth - (crossAxisCount + 1) * 20) / crossAxisCount;
     List<String> titel = title;
     List<String> icon = icon1 ?? Subtitel ?? List.filled(titel.length, "0");
 
