@@ -19,15 +19,17 @@ class DafultListInformation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         //            crossAxisAlignment: CrossAxisAlignment.stretch,
         children: List.generate(titel.length, (index) {
-          return ItemInformtion(
-            onTap: () {},
-            titel: titel[index],
-            child: iconName[index] != null
-                ? Image.asset(
-                    iconName[index]!,
-                    height: 20,
-                  )
-                : null,
+          return Flexible(
+            child: ItemInformtion(
+              onTap: () {},
+              titel: titel[index],
+              child: iconName[index] != null
+                  ? Image.asset(
+                      iconName[index]!,
+                      height: 20,
+                    )
+                  : null,
+            ),
           );
         }));
   }

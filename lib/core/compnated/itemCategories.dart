@@ -54,7 +54,7 @@ class ItemCategories extends StatelessWidget {
                     fit: FlexFit.loose,
                     child: Text(
                       titel[index],
-                      //  softWrap: true,
+                      // softWrap: true,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.visible,
                       style: ApptextStyle.textStyleApp16.copyWith(fontSize: 14),

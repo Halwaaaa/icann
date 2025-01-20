@@ -71,6 +71,7 @@ class DafultOrderInformation extends StatelessWidget {
                         icon: null),
                     DadfultBoutton(
                         title: AppText.responses.tr,
+                        onTap: () {},
                         ColorSelected: AppColor.Catrgray,
                         fillColor: Colors.white,
                         icon: null),

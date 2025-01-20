@@ -25,21 +25,13 @@ class ItemInformtion extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    titel,
-                    style: ApptextStyle.textStyleApp16,
-                  ),
-                ),
-                // const Spacer(),
-              ],
+          Flexible(
+            fit: FlexFit.loose,
+            child: Text(
+              titel,
+              softWrap: true,
+              overflow: TextOverflow.visible,
+              style: ApptextStyle.textStyleApp16,
             ),
           ),
         ],

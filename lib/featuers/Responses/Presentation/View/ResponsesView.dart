@@ -1,20 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ican/core/Loction/textApp.dart';
-import 'package:ican/core/compnated/DafultListInformation.dart';
 import 'package:ican/core/compnated/item.dart';
-import 'package:ican/core/utlies/Modules/ModulesHome.dart';
 import 'package:ican/core/utlies/Modules/MoudulesResponses.dart';
-import 'package:ican/core/utlies/appimage.dart';
 import 'package:ican/core/utlies/color.dart';
 import 'package:ican/core/utlies/mathed.dart';
 import 'package:ican/core/utlies/textStyle.dart';
 import 'package:ican/featuers/Responses/Presentation/Modles/ResponsesModels.dart';
 import 'package:ican/featuers/Responses/Presentation/controll/ResponsesControll.dart';
-import 'package:ican/featuers/home/Presentation/controol/controolHome.dart';
-import 'package:ican/featuers/home/Presentation/controol/groupControll.dart';
-import 'package:ican/featuers/home/Presentation/widget/Item/itemInformtion.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ResponsesView extends StatelessWidget {
@@ -64,7 +57,7 @@ class ResponsesView extends StatelessWidget {
                                 child: Align(
                                     alignment: Alignment.center,
                                     child: Ietm(
-                                      heightOfShadowLeft: 340 +
+                                      heightOfShadowLeft: 300 +
                                           responsesControll.getTextHeight(
                                             responsesModels.response,
                                             ApptextStyle.textStyleApp20
@@ -150,7 +143,7 @@ class ResponsesView extends StatelessWidget {
                                                   1,
                                             ),
                                             Text(
-                                              " ${responsesModels.createdBy} :الاسم ",
+                                              "الاسم: ${responsesModels.createdBy} ",
                                               textAlign: TextAlign.center,
                                               style: ApptextStyle.textStyleApp13
                                                   .copyWith(
@@ -192,58 +185,60 @@ class RwoBox extends StatelessWidget {
   final bool? subtitelValue;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Row(
-            spacing: 5,
-            children: [
-              Flexible(
-                flex: 5,
-                child: Text(
-                  titel,
-                  style: ApptextStyle.textStyleApp13.copyWith(
-                      color: AppColor.primaryAppbar,
-                      fontWeight: FontWeight.w500),
+    return Flexible(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Row(
+              spacing: 5,
+              children: [
+                Flexible(
+                  flex: 5,
+                  child: Text(
+                    titel,
+                    style: ApptextStyle.textStyleApp13.copyWith(
+                        color: AppColor.primaryAppbar,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
-              ),
-              Flexible(
-                child: Checkbox(
-                  value: titelValue,
-                  activeColor: AppColor.Catrgray,
-                  onChanged: (value) {},
+                Flexible(
+                  child: Checkbox(
+                    value: titelValue,
+                    activeColor: AppColor.Catrgray,
+                    onChanged: (value) {},
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        subtitel != null
-            ? Flexible(
-                child: Row(
-                  spacing: 5,
-                  children: [
-                    Flexible(
-                      flex: 5,
-                      child: Text(
-                        subtitel!,
-                        // maxLines: 1,
-                        style: ApptextStyle.textStyleApp13
-                            .copyWith(color: AppColor.primaryAppbar),
+          subtitel != null
+              ? Flexible(
+                  child: Row(
+                    spacing: 5,
+                    children: [
+                      Flexible(
+                        flex: 5,
+                        child: Text(
+                          subtitel!,
+                          // maxLines: 1,
+                          style: ApptextStyle.textStyleApp13
+                              .copyWith(color: AppColor.primaryAppbar),
+                        ),
                       ),
-                    ),
-                    Flexible(
-                      child: Checkbox(
-                        value: subtitelValue,
-                        activeColor: AppColor.Catrgray,
-                        onChanged: (value) {},
+                      Flexible(
+                        child: Checkbox(
+                          value: subtitelValue,
+                          activeColor: AppColor.Catrgray,
+                          onChanged: (value) {},
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            : const SizedBox.shrink(),
-      ],
+                    ],
+                  ),
+                )
+              : const SizedBox.shrink(),
+        ],
+      ),
     );
   }
 }
