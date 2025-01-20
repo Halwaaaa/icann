@@ -12,6 +12,7 @@ import 'package:ican/featuers/home/Presentation/models/OrderDatiles.dart';
 import 'package:ican/featuers/home/Presentation/models/OrderSatutes.dart';
 import 'package:ican/featuers/home/Presentation/models/StatmentModels.dart';
 import 'package:ican/featuers/home/Presentation/models/orderModels.dart';
+import 'package:ican/featuers/home/Presentation/models/warehousesModels.dart';
 import 'package:ican/featuers/setting/Presentation/Models/LeaderModels.dart';
 
 class HivenServices extends GetxService {
@@ -21,6 +22,8 @@ class HivenServices extends GetxService {
   static String conters = 'conters';
   static String custmorName = 'CustmorName';
   static String custmorAll = 'custmorAll';
+  static String wareList = 'wareList';
+  static String WithdrawList = 'WithdrawList';
   static String staff = 'staff';
   static String custmorAllGroup = 'custmorAllGroup';
   static String group = 'group';
@@ -38,6 +41,7 @@ class HivenServices extends GetxService {
   static String price = 'Price';
   static String priceTotle = 'PriceTolel';
   static String pricewithRemove = 'pricewithRemove';
+  static String warehouseAll = 'warehouseAll';
   late Box box;
   late Box<User> userbox;
   late Box<List<CountersUser>> boxcon;
@@ -59,7 +63,8 @@ class HivenServices extends GetxService {
     Hive.registerAdapter(ResponsesModelsAdapter());
     Hive.registerAdapter(StatementAdapter());
     Hive.registerAdapter(LeaderModelsAdapter());
-    //Hive.deleteBoxFromDisk(user);
+    Hive.registerAdapter(warehousesAdapter());
+    Hive.deleteBoxFromDisk(warehouseAll);
     userbox = await Hive.openBox(user);
 
     //userbox.delete(user);

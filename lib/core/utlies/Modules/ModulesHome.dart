@@ -10,6 +10,8 @@ import 'package:ican/core/utlies/enum/enumPermation.dart';
 import 'package:ican/core/utlies/enum/eunm.dart';
 import 'package:ican/featuers/home/Presentation/models/CustmorAllUser.dart';
 import 'package:ican/featuers/home/Presentation/models/GroupUser.dart';
+import 'package:ican/featuers/home/Presentation/models/wareList.dart';
+import 'package:ican/featuers/home/Presentation/models/warehousesModels.dart';
 import 'package:iconly/iconly.dart';
 
 List<String> modulesCategoryCustmor = [
@@ -104,6 +106,7 @@ List<String> modulesIconMain() {
   if (user.permation.contains(enumPermation.orders.label)) {
     item.add(enumCategory.OrderStatus.Icon);
   }
+
   item.add(
     enumCategory.Account.Icon,
   );
@@ -137,13 +140,16 @@ List<String> moudelsAcount2 = [
   AppText.financialAccounts.tr,
   AppText.warehouseAccounts.tr,
 ];
-List<String> modulesProduct = [
-  "${AppText.productName.tr}:  الصياد ",
-  "${AppText.quantity.tr}: 3",
-  "${AppText.price.tr}:  26",
-  "${AppText.totalPrice.tr}:  50",
-  "${AppText.totalPoints.tr}:  0.255"
-];
+List<String> modulesProduct(Warehousesmodels ware) {
+  return [
+    "${AppText.productName.tr}:  ${ware.name}",
+    "${AppText.quantity.tr}: ${ware.qty}",
+    "${AppText.price.tr}:  ${ware.price}",
+    "${AppText.totalPrice.tr}:  ${ware.totalPrice}",
+    "${AppText.totalPoints.tr}:  ${ware.totalPoints}"
+  ];
+}
+
 List<String> modulesProductNameIcon = [
   AppImageName.order,
   AppImageName.orderNumber,
@@ -227,13 +233,16 @@ List<String> modulesIconNameAcount = [
   AppImageName.notes,
   AppImageName.date
 ];
-List<String> moduleTitelStroe = [
-  "${AppText.listNumber.tr}:  45125",
-  "${AppText.clientName.tr}:  ليث",
-  "${AppText.notes.tr}:  ا تحويل من حساب نتاليا",
-  "${AppText.dateAdded.tr}:  20/2022/2  20.00pm",
-  "${AppText.createdBy.tr}:  ليث",
-];
+List<String> moduleTitelStroe(WareList wareList) {
+  return [
+    "${AppText.listNumber.tr}:  ${wareList.listNo}",
+    "${AppText.clientName.tr}:  ${wareList.customerName}",
+    "${AppText.notes.tr}: ${wareList.note}",
+    "${AppText.dateAdded.tr}:  ${wareList.createdAt}",
+    "${AppText.createdBy.tr}:  ${wareList.createdBy}",
+  ];
+}
+
 List<String> moduleIconNameStroe = [
   AppImageName.orderNumber,
   AppImageName.profile,

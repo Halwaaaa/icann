@@ -36,7 +36,9 @@ class AcountControll extends GetxController {
   late TextEditingController textTotelPrice;
   late TextEditingController textTotelPricewithRemove;
   late Box<int> boxPrice;
+late int ?id;
   Timer? t;
+
 
   static String acount = 'acount';
   static String visibale = 'visibale';
@@ -67,6 +69,8 @@ class AcountControll extends GetxController {
     indexAcountMoudels = 0;
     indexSelectedStore = 0;
     indexGridAcount = 0;
+    id=null;
+
     isAcount = true;
     lodingStatements = false;
     statementData = statementDataDafult;
@@ -95,7 +99,12 @@ class AcountControll extends GetxController {
 
   void setVisibale(bool value) {
     visibaleGrid = value;
+    
     update([store]);
+  }
+  void setId(int id){
+    id = id;
+
   }
 
   void changedIndexGridAcount(int index) {
@@ -181,67 +190,4 @@ class AcountControll extends GetxController {
     textTotelPricewithRemove =
         TextEditingController(text: "${priceRemov ?? 5}");
   }
-  // Future<void> getLocalStatements(bool continued) async {
-  //   lodingStatements = true;
-  //   statementData = statementDataDafult;
-  //   update([statements]);
-  //   bool isNullLocal = false;
-  //   Box<List<dynamic>> boxStatements =
-  //       await Hive.openBox<List<dynamic>>(HivenServices.statement);
-  //   StatementLocal localeStaute = StatementLocal(boxStatements);
-  //   List<StatementModels>? local = await localeStaute.getStatement(continued);
-  //   if (local != null) {
-  //     lodingStatements = false;
-  //     statementData = local;
-  //     update([statements]);
-  //   } else {
-  //     isNullLocal = true;
-  //     lodingStatements = true;
-  //     statementData = statementDataDafult;
-  //     update([statements]);
-  //   }
-  //   getRemte(isNullLocal, continued, localeStaute);
-  // }
-
-  // Future<void> getRemte(
-  //     bool isNullLoacl, bool continued, StatementLocal localeStaute) async {
-  //   final ServicesDio servicesDio = Get.find();
-  //   Remotestatement remotestatement = Remotestatement(servicesDio: servicesDio);
-
-  //   List<StatementModels>? result =
-  //       await remotestatement.getStatement(continued);
-  //   if (result != null) {
-  //     lodingStatements = false;
-  //     statementData = result;
-  //     localeStaute.setStatement(result, continued);
-  //     update([statements]);
-  //   } else {
-  //     if (isNullLoacl) {
-  //       Get.snackbar(
-  //         "خطا",
-  //         "الرجاء التحقق من الاتصال",
-  //         //backgroundColor: Colors.black,
-  //         colorText: Colors.black,
-  //         duration: const Duration(seconds: 5),
-  //       );
-  //       t = Timer.periodic(const Duration(seconds: 10), (time) async {
-  //         List<StatementModels>? result =
-  //             await remotestatement.getStatement(continued);
-  //         print(time.tick);
-  //         if (result != null) {
-  //           Get.snackbar(
-  //             " ",
-  //             "تم اعادة الاتصال",
-  //             colorText: Colors.black,
-  //             duration: const Duration(seconds: 5),
-  //           );
-  //           lodingStatements = false;
-  //           statementData = result;
-  //           update([statements]);
-  //           time.cancel();
-  //         }
-  //       });
-  //     }
-  // }
-  // }
 }
